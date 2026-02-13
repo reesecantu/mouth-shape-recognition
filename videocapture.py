@@ -37,7 +37,32 @@ with mp_face_mesh.FaceMesh(
     left_eyebrow = [70, 63, 105, 66, 107]
     right_eyebrow = [336, 296, 334, 293, 300]
     upper_lip_nose = [206, 203, 167, 164, 393, 426]
-    landmarks = outer_top + inner_top + inner_bottom + outer_bottom + left_eyebrow + right_eyebrow
+    left_eye = [362, 382, 381, 380, 374, 373, 390, 249, 263, 466, 388, 387, 386, 385, 384, 398]
+    right_eye = [33, 7, 163, 144, 145, 153, 154, 155, 133, 173, 157, 158, 159, 160, 161, 246]
+
+    parts = [
+        (outer_top, "outer_top"),
+        (inner_top, "inner_top"),
+        (inner_bottom, "inner_bottom"),
+        (outer_bottom, "outer_bottom"),
+        (left_eyebrow, "left_eyebrow"),
+        (right_eyebrow, "right_eyebrow"),
+        (left_eye, "left_eye"),
+        (right_eye, "right_eye"),
+    ]
+
+    # Define colors for each part
+    colors = {
+      "outer_top": (0, 255, 0),      # Green
+      "inner_top": (255, 0, 0),      # Blue
+      "inner_bottom": (0, 0, 255),   # Red
+      "outer_bottom": (0, 255, 255),  # Yellow
+      "left_eyebrow": (255, 0, 255),  # Magenta
+      "right_eyebrow": (255, 165, 0),  # Orange
+      "upper_lip_nose": (128, 0, 128),  # Purple
+      "left_eye": (255, 255, 0),     # Cyan
+      "right_eye": (128, 128, 0),    # Olive
+    }
 
     # Draw the face mesh annotations on the image
     image.flags.writeable = True
@@ -45,47 +70,15 @@ with mp_face_mesh.FaceMesh(
     if results.multi_face_landmarks:
       for face_landmarks in results.multi_face_landmarks:
         # Draw relevant landmarks
-        # Define colors for each part
-        colors = {
-          "outer_top": (0, 255, 0),      # Green
-          "inner_top": (255, 0, 0),      # Blue
-          "inner_bottom": (0, 0, 255),   # Red
-          "outer_bottom": (0, 255, 255),  # Yellow
-          "left_eyebrow": (255, 0, 255),  # Magenta
-          "right_eyebrow": (255, 165, 0),  # Orange
-          "upper_lip_nose": (128, 0, 128)  # Purple
-        }
         # Draw each part with its color
-        for idx in outer_top:
-          landmark = face_landmarks.landmark[idx]
-          x = int(landmark.x * img_x)
-          y = int(landmark.y * img_y)
-          cv2.circle(image, (x, y), 3, colors["outer_top"], -1)
-        for idx in inner_top:
-          landmark = face_landmarks.landmark[idx]
-          x = int(landmark.x * img_x)
-          y = int(landmark.y * img_y)
-          cv2.circle(image, (x, y), 3, colors["inner_top"], -1)
-        for idx in inner_bottom:
-          landmark = face_landmarks.landmark[idx]
-          x = int(landmark.x * img_x)
-          y = int(landmark.y * img_y)
-          cv2.circle(image, (x, y), 3, colors["inner_bottom"], -1)
-        for idx in outer_bottom:
-          landmark = face_landmarks.landmark[idx]
-          x = int(landmark.x * img_x)
-          y = int(landmark.y * img_y)
-          cv2.circle(image, (x, y), 3, colors["outer_bottom"], -1)
-        for idx in left_eyebrow:
-          landmark = face_landmarks.landmark[idx]
-          x = int(landmark.x * img_x)
-          y = int(landmark.y * img_y)
-          cv2.circle(image, (x, y), 3, colors["left_eyebrow"], -1)
-        for idx in right_eyebrow:
-          landmark = face_landmarks.landmark[idx]
-          x = int(landmark.x * img_x)
-          y = int(landmark.y * img_y)
-          cv2.circle(image, (x, y), 3, colors["right_eyebrow"], -1)
+        for indices, name in parts:
+          for idx in indices:
+            landmark = face_landmarks.landmark[idx]
+            x = int(landmark.x * img_x)
+            y = int(landmark.y * img_y)
+            cv2.circle(image, (x, y), 3, colors[name], -1)
+
+
         for idx in upper_lip_nose:
             landmark = face_landmarks.landmark[idx]
             x = int(landmark.x * img_x)
