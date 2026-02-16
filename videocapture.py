@@ -17,7 +17,6 @@ with mp_face_mesh.FaceMesh(
     success, image = cap.read()
     if not success:
       print("Ignoring empty camera frame.")
-      # If loading a video, use 'break' instead of 'continue'.
       continue
 
     image = cv2.flip(image, 1)
@@ -55,7 +54,6 @@ with mp_face_mesh.FaceMesh(
             )
         # calculations
     
-    # Flip the image horizontally for a selfie-view display.
     cv2.imshow('MediaPipe Face Mesh', image)
     if cv2.waitKey(5) & 0xFF == 27:
       break
