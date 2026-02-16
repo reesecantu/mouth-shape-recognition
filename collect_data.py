@@ -54,7 +54,7 @@ with mp_face_mesh.FaceMesh(
         results = face_mesh.process(image)
         img_y, img_x, img_channels = image.shape
 
-        # Draw the face mesh annotations on the image
+
         image.flags.writeable = True
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
         if results.multi_face_landmarks:

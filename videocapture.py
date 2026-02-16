@@ -52,7 +52,6 @@ with mp_face_mesh.FaceMesh(
               1,
               cv2.LINE_AA
             )
-        # calculations
     
     cv2.imshow('MediaPipe Face Mesh', image)
     if cv2.waitKey(5) & 0xFF == 27:
