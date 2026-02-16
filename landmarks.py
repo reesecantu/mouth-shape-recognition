@@ -14,12 +14,14 @@ full_outer_top = [61, 185, 40, 39, 37, 0, 267, 269, 270, 409, 291]
 full_inner_top = [78, 191, 80, 81, 82, 13, 312, 311, 310, 415, 308]
 full_inner_bottom = [78, 88, 87, 14, 317, 318, 308]
 full_outer_bottom = [61, 146, 91, 181, 84, 17, 314, 405, 321, 375, 291]
-full_left_eyebrow = [70, 63, 105, 66, 107]
-full_right_eyebrow = [336, 296, 334, 293, 300]
 full_upper_lip_nose = [206, 203, 167, 164, 393, 426, 423]
 full_left_eye = [362, 382, 381, 380, 374, 373, 390, 249, 263, 466, 388, 387, 386, 385, 384, 398]
 full_right_eye = [33, 161, 246, 7, 163, 144, 145, 153, 154, 155, 133, 173, 157, 158, 159, 160]
-
+full_left_eyebrow = [70, 63, 105, 66, 107, 55, 65, 52, 53, 46]
+full_right_eyebrow = [336, 296, 334, 293, 300, 285, 295, 282, 283, 276]
+full_nose = [1, 2, 98, 327, 168, 6, 195, 5, 4, 19]
+full_left_cheek = [116, 123, 147, 213, 192, 187]
+full_right_cheek = [345, 352, 376, 433, 416, 411]
 
 parts = [
   (outer_top, "outer_top"),
@@ -33,6 +35,21 @@ parts = [
   (right_eye, "right_eye"),
 ]
 
+full_parts = [
+    (full_outer_top, "outer_top"),
+    (full_inner_top, "inner_top"),
+    (full_inner_bottom, "inner_bottom"),
+    (full_outer_bottom, "outer_bottom"),
+    (full_left_eyebrow, "left_eyebrow"),
+    (full_right_eyebrow, "right_eyebrow"),
+    (full_upper_lip_nose, "upper_lip_nose"),
+    (full_left_eye, "left_eye"),
+    (full_right_eye, "right_eye"),    
+    (full_nose, "nose"),
+    (full_left_cheek, "left_cheek"),
+    (full_right_cheek, "right_cheek"),
+]
+
 # Define colors for each part
 colors = {
   "outer_top": (0, 255, 0),      # Green
@@ -43,5 +60,8 @@ colors = {
   "right_eyebrow": (255, 165, 0),  # Orange
   "upper_lip_nose": (128, 0, 128),  # Purple
   "left_eye": (255, 255, 0),     # Cyan
-  "right_eye": (128, 128, 0),    # Olive"
+  "right_eye": (128, 128, 0),    # Olive
+  "nose": (0, 128, 128),        # Teal
+  "left_cheek": (128, 128, 128), # Gray
+  "right_cheek": (0, 128, 0),    # Dark Green
 }
