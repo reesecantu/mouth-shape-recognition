@@ -15,13 +15,14 @@ full_inner_top = [78, 191, 80, 81, 82, 13, 312, 311, 310, 415, 308]
 full_inner_bottom = [78, 88, 87, 14, 317, 318, 308]
 full_outer_bottom = [61, 146, 91, 181, 84, 17, 314, 405, 321, 375, 291]
 full_upper_lip_nose = [206, 203, 167, 164, 393, 426, 423]
-full_left_eye = [362, 382, 381, 380, 374, 373, 390, 249, 263, 466, 388, 387, 386, 385, 384, 398]
-full_right_eye = [33, 161, 246, 7, 163, 144, 145, 153, 154, 155, 133, 173, 157, 158, 159, 160]
+full_left_eye = [263, 362, 386, 374, 385, 387, 373, 384, 380]
+full_right_eye = [33, 133, 159, 145, 160, 158, 157, 144, 161, 153]
 full_left_eyebrow = [70, 63, 105, 66, 107, 55, 65, 52, 53, 46]
 full_right_eyebrow = [336, 296, 334, 293, 300, 285, 295, 282, 283, 276]
-full_nose = [1, 2, 98, 327, 168, 6, 195, 5, 4, 19]
+full_nose = [1, 2, 98, 327, 168, 6, 195, 5, 4, 19, 97, 49, 131, 279, 360, 326]
 full_left_cheek = [116, 123, 147, 213, 192, 187]
 full_right_cheek = [345, 352, 376, 433, 416, 411]
+full_chin = [136, 150, 149, 176, 148, 365, 379, 378, 400, 377, 172, 397, 152]
 
 parts = [
   (outer_top, "outer_top"),
@@ -48,7 +49,16 @@ full_parts = [
     (full_nose, "nose"),
     (full_left_cheek, "left_cheek"),
     (full_right_cheek, "right_cheek"),
+    (full_chin, "chin"),
 ]
+
+all_landmarks = set(
+    full_outer_top + full_inner_top + full_inner_bottom + 
+    full_outer_bottom + full_upper_lip_nose + full_left_eye + 
+    full_right_eye + full_left_eyebrow + full_right_eyebrow + 
+    full_nose + full_left_cheek + full_right_cheek + full_chin
+)
+all_landmarks = sorted(all_landmarks)
 
 # Define colors for each part
 colors = {
@@ -64,4 +74,5 @@ colors = {
   "nose": (0, 128, 128),        # Teal
   "left_cheek": (128, 128, 128), # Gray
   "right_cheek": (0, 128, 0),    # Dark Green
+  "chin": (128, 0, 0),          # Maroon
 }

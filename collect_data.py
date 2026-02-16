@@ -2,6 +2,7 @@ import cv2
 import mediapipe as mp
 import pandas as pd
 import time
+from landmarks import all_landmarks
 
 mp_face_mesh = mp.solutions.face_mesh #type: ignore
 cap = cv2.VideoCapture(0)
@@ -48,7 +49,7 @@ with mp_face_mesh.FaceMesh(
         cv2.LINE_AA
         )
         
-        ###### FACE MESH ######
+        ###### FACE LANDMARKS ######
         image.flags.writeable = False
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         results = face_mesh.process(image)
@@ -65,7 +66,7 @@ with mp_face_mesh.FaceMesh(
                         "burst_id": burst_id,
                         "frame_number": frame_count,
                     }
-                    for idx in range(468):
+                    for idx in all_landmarks:
                         lm = face_landmarks.landmark[idx]
                         row[f"lm_{idx}_x"] = lm.x
                         row[f"lm_{idx}_y"] = lm.y

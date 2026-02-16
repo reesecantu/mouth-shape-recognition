@@ -36,7 +36,7 @@ with mp_face_mesh.FaceMesh(
       for face_landmarks in results.multi_face_landmarks:
         # Draw relevant landmarks
         # Draw each part with its color
-        for indices, name in parts:
+        for indices, name in full_parts:
           for idx in indices:
             landmark = face_landmarks.landmark[idx]
             x = int(landmark.x * img_x)
