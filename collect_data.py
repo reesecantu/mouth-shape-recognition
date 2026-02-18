@@ -3,6 +3,7 @@ import mediapipe as mp
 import pandas as pd
 import time
 from landmarks import all_landmarks
+from utils import LABELS
 
 mp_face_mesh = mp.solutions.face_mesh #type: ignore
 cap = cv2.VideoCapture(0)
@@ -11,7 +12,6 @@ collected_data = []
 burst_id = int(time.time())
 frame_count = 0
 
-labels = ["EE", "MM", "OO", "AH", "CHA", "SH", "STA", "SOW", "ARCH", "LIP BUZZ", "OTHER", "NEUTRAL"]
 current_label_index = 0
 
 with mp_face_mesh.FaceMesh(
@@ -35,8 +35,8 @@ with mp_face_mesh.FaceMesh(
                 burst_id += 1
                 frame_count = 0
         if key == ord('n'):
-            current_label_index = (current_label_index + 1) % len(labels)
-        status_text = f"{'RECORDING' if is_recording else 'WAITING'} {labels[current_label_index]} {current_label_index + 1}/{len(labels)} | samples: {len(collected_data)}"
+            current_label_index = (current_label_index + 1) % len(LABELS)
+        status_text = f"{'RECORDING' if is_recording else 'WAITING'} {LABELS[current_label_index]} {current_label_index + 1}/{len(LABELS)} | samples: {len(collected_data)}"
         text_color = (0, 0, 255) if is_recording else (0, 255, 0)
         cv2.putText(
         image,
@@ -62,7 +62,7 @@ with mp_face_mesh.FaceMesh(
             for face_landmarks in results.multi_face_landmarks:
                 if is_recording:
                     row = {
-                        "label": labels[current_label_index],
+                        "label": LABELS[current_label_index],
                         "burst_id": burst_id,
                         "frame_number": frame_count,
                     }

@@ -20,3 +20,8 @@ class FakeFaceLandmarks:
                     self.landmark[idx] = FakeLandmark(0, 0, 0)
                 setattr(self.landmark[idx], coord, row[col])
 
+
+
+LABELS = ["EE", "MM", "OO", "AH", "CHA", "SH", "STA", "SOW", "ARCH", "LIP BUZZ", "OTHER", "NEUTRAL"]
+LABEL_TO_IDX = {label: idx for idx, label in enumerate(LABELS)}
+IDX_TO_LABEL = {idx: label for label, idx in LABEL_TO_IDX.items()}
