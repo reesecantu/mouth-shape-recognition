@@ -20,7 +20,7 @@ for idx, row in raw_df.iterrows():
 
 # Save
 processed_df = pd.DataFrame(processed_rows)
-processed_df.to_csv(f"data/processed/processed_date_{int(time.time())}.csv", index=False)
+processed_df.to_csv(f"data/processed/processed_data_{int(time.time())}.csv", index=False)
 print(f"Processed {len(processed_rows)} rows")
 print(processed_df["label"].value_counts())
 print(processed_df.head())
