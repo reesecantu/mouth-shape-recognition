@@ -81,7 +81,7 @@ with mp_face_mesh.FaceMesh(
 cap.release()
 if collected_data:
     df = pd.DataFrame(collected_data)
-    df.to_csv(f"data/collected_data_{int(time.time())}.csv", index=False)
+    df.to_csv(f"data/raw/collected_data_{int(time.time())}.csv", index=False)
     print(f"Saved {len(collected_data)} rows to data/collected_data.csv")
 else:
     print("No data collected.")

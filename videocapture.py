@@ -6,6 +6,8 @@ from landmarks import parts, full_parts, colors
 # mp_drawing_styles = mp.solutions.drawing_styles
 mp_face_mesh = mp.solutions.face_mesh # type: ignore
 
+show_face_mesh = True
+
 # drawing_spec = mp_drawing.DrawingSpec(thickness=1, circle_radius=1)
 cap = cv2.VideoCapture(0)
 with mp_face_mesh.FaceMesh(
@@ -19,6 +21,7 @@ with mp_face_mesh.FaceMesh(
       print("Ignoring empty camera frame.")
       continue
 
+    key = cv2.waitKey(5) & 0xFF
     image = cv2.flip(image, 1)
     # Performance improvements, optionally mark the image as not writeable to 
     # pass by reference
@@ -32,7 +35,7 @@ with mp_face_mesh.FaceMesh(
     # Draw the face mesh annotations on the image
     image.flags.writeable = True
     image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-    if results.multi_face_landmarks:
+    if show_face_mesh and results.multi_face_landmarks:
       for face_landmarks in results.multi_face_landmarks:
         # Draw relevant landmarks
         # Draw each part with its color
@@ -54,6 +57,8 @@ with mp_face_mesh.FaceMesh(
             )
     
     cv2.imshow('MediaPipe Face Mesh', image)
-    if cv2.waitKey(5) & 0xFF == 27:
+    if key == 27:
       break
+    if key == ord('m'):
+      show_face_mesh = not show_face_mesh
 cap.release()
