@@ -1,10 +1,16 @@
 import torch
 import torch.nn as nn
 import numpy as np
+import time
+import os
 from model import NMMClassifier
 from utils import LABELS
 from torch.utils.data import TensorDataset, DataLoader
 from sklearn.metrics import classification_report, confusion_matrix
+
+# Create output directory with timestamp
+timestamp = time.strftime("%Y-%m-%d_%H-%M-%S")
+model_path = f"data/trained_models/model_{timestamp}.pth"
 
 # Load prepared data
 data = np.load("data/prepared_data.npz")
@@ -73,7 +79,7 @@ for epoch in range(NUM_EPOCHS):
 
     if test_accuracy > best_test_accuracy:
         best_test_accuracy = test_accuracy
-        torch.save(model.state_dict(), "data/trained_model.pth")
+        torch.save(model.state_dict(), model_path)
 
     if (epoch + 1) % 5 == 0:
         print(f"Epoch {epoch+1}/{NUM_EPOCHS} | Loss: {avg_loss:.4f} | Train Acc: {train_accuracy:.4f} | Test Acc: {test_accuracy:.4f}")
@@ -82,7 +88,7 @@ print(f"\nBest test accuracy: {best_test_accuracy:.4f}")
 print("Loading best model for evaluation...")
 
 # Load best model and generate confusion matrix
-model.load_state_dict(torch.load("data/trained_model.pth"))
+model.load_state_dict(torch.load(model_path))
 model.eval()
 
 all_preds = []
@@ -95,11 +101,14 @@ with torch.no_grad():
         all_preds.extend(preds.numpy())
         all_labels.extend(batch_y.numpy())
 
+all_label_indices = list(range(len(LABELS)))
+
 print("\nClassification Report:")
 print(classification_report(
     all_labels, all_preds,
-    target_names=LABELS
+    target_names=LABELS,
+    labels=all_label_indices,
 ))
 
 print("Confusion Matrix:")
-print(confusion_matrix(all_labels, all_preds))
+print(confusion_matrix(all_labels, all_preds, labels=all_label_indices))
