@@ -21,9 +21,10 @@ class NMMClassifier(nn.Module):
         return output
     
     
-model = NMMClassifier(
-    input_size=22,
-    hidden_size=128,
-    num_classes=12,
-)
-print(model)
+if __name__ == "__main__":
+    model = NMMClassifier(
+        input_size=22,
+        hidden_size=128,
+        num_classes=12,
+    )
+    print(model)

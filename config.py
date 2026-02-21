@@ -10,6 +10,12 @@ WINDOW_SIZE = 30
 TEST_SPLIT = 0.2
 RANDOM_SEED = 42
 
+# --- Model parameters ---
+INPUT_SIZE = 22
+HIDDEN_SIZE = 128
+NUM_EPOCHS = 50
+BATCH_SIZE = 32
+
 # --- Paths ---
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 RAW_DATA_DIR = os.path.join(PROJECT_ROOT, "data", "raw")

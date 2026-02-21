@@ -7,24 +7,25 @@ import torch.nn as nn
 import numpy as np
 import time
 from utils.model import NMMClassifier
-from config import LABELS, PREPARED_DATA_DIR, MODEL_DIR
+from config import LABELS, PREPARED_DATA_DIR, MODEL_DIR, INPUT_SIZE, HIDDEN_SIZE, NUM_EPOCHS, BATCH_SIZE
 from torch.utils.data import TensorDataset, DataLoader
 from sklearn.metrics import classification_report, confusion_matrix
+import glob
 
 # create model path with timestamp
 timestamp = time.strftime("%Y-%m-%d_%H-%M-%S")
 model_path = os.path.join(MODEL_DIR, f"model_{timestamp}.pth")
 
-# Load prepared data
-data = np.load(os.path.join(PREPARED_DATA_DIR, "prepared_data.npz"))
+# Load latest prepared data
+files = glob.glob(os.path.join(PREPARED_DATA_DIR, "prepared_data_*"))
+latest_file = max(files, key=os.path.getmtime)
+data = np.load(latest_file)
 X_train = torch.FloatTensor(data["X_train"])
 y_train = torch.LongTensor(data["y_train"])
 X_test = torch.FloatTensor(data["X_test"])
 y_test = torch.LongTensor(data["y_test"])
 
 print(f"Training: {X_train.shape}, Test: {X_test.shape}")
-
-BATCH_SIZE = 32
 
 train_dataset = TensorDataset(X_train, y_train)
 test_dataset = TensorDataset(X_test, y_test)
@@ -33,15 +34,14 @@ train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=False)
 
 model = NMMClassifier(
-    input_size=22,
-    hidden_size=128,
+    input_size=INPUT_SIZE,
+    hidden_size=HIDDEN_SIZE,
     num_classes=len(LABELS),
 )
 
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
-NUM_EPOCHS = 50
 best_test_accuracy = 0
 
 for epoch in range(NUM_EPOCHS):

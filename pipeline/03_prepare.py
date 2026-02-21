@@ -20,9 +20,6 @@ latest_file = max(files, key=os.path.getmtime)
 df = pd.read_csv(latest_file)
 print(f"Loaded: {latest_file}")
 
-
-WINDOW_SIZE = 30
-
 windows = []
 window_labels = []
 window_burst_ids = []
