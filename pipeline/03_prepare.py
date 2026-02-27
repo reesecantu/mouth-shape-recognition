@@ -1,7 +1,7 @@
 """
 Step 3: Window the processed data and split into train/test.
 Input:  data/processed/processed_data_*.csv
-Output: data/prepared/prepared_data.npz
+Output: data/prepared/prepared_data_<timestamp>.npz
 """
 
 import sys

@@ -11,7 +11,7 @@ import pandas as pd
 import glob
 import time
 from utils.features import compute_features
-from utils.utils import FakeFaceLandmarks
+from utils.face_landmark_struct import FakeFaceLandmarks
 from config import RAW_DATA_DIR, PROCESSED_DATA_DIR
 
 files = glob.glob(os.path.join(RAW_DATA_DIR, "collected_data_*.csv"))

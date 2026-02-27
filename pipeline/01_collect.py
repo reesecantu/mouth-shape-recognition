@@ -12,7 +12,7 @@ import cv2
 import mediapipe as mp
 import pandas as pd
 import time
-from utils.landmarks import all_landmarks
+from utils.landmarks_list import all_landmarks
 from config import LABELS, RAW_DATA_DIR
 
 mp_face_mesh = mp.solutions.face_mesh #type: ignore

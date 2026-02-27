@@ -1,3 +1,9 @@
+"""
+Step 4: Train the NMM classifier on the prepared data.
+Input:  data/prepared/prepared_data_*.npz
+Output: model/model_<timestamp>.pth
+"""
+
 import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
